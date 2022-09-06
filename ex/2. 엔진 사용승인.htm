@@ -1,0 +1,37 @@
+﻿<span>2. 엔진 사용승인</span>
+<br />
+식별코드:
+<input type="text" id="identityCode" value="" />
+비밀번호:
+<input type="password" id="password" value="" />
+<button onclick="call()">로그인</button>
+<br />
+<span id="msg" style="color: red;"></span>
+<br />
+<script>
+    document.querySelector('#identityCode').value = localStorage['identityCode'] || '';
+    document.querySelector('#password').value = localStorage['password'] || '';
+
+    function call() {
+        var identityCode = document.querySelector('#identityCode').value;
+        var password = document.querySelector('#password').value;
+
+        _engine.api.signIn(identityCode, password)
+            .then(function (data) {
+                var result = '';
+                if (data.status == 'S') {
+                    localStorage['identityCode'] = identityCode;
+                    localStorage['password'] = password;
+
+                    result += 'expirydate: ' + data.expirydate + '<br />';
+                    result += 'identitycode: ' + data.identitycode;
+                } else {
+                    result = data.msg;
+                }
+                document.querySelector("#msg").innerHTML = result;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+</script>

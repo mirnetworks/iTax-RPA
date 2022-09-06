@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>iTax RPA test</title>
+    <link rel="stylesheet" type="text/css" href="./css/default.css" />
+    <!-- Promise -->
+    <script>
+        (function () {
+            var ua = navigator.userAgent;
+            if (!!ua.match(/MSIE/gi) || !!ua.match(/Trident/gi)) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', './js/bluebird.min.js', true);
+                xhr.send();
+                xhr.onreadystatechange = function (e) {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        if (xhr.status == 200) {
+                            eval(xhr.responseText);
+                        }
+                    }
+                }
+            }
+        })();
+    </script>
+    <script src="./js/itaxrpa.js?postfix=2022_09_07"></script>
+    <script>
+        /**
+         * 필수 호출.
+         */
+        _engine.rpa.initialize()
+            .catch(function () { document.querySelector('#plugin a').click(); }); // 플러그인 설치로 이동.
+
+        function go(o, ex) {
+            var xhr = new XMLHttpRequest();
+            var url = ex + o.innerText + '.htm?t=' + new Date().getTime();
+            xhr.open("GET", url);
+            xhr.send();
+            xhr.onreadystatechange = function (e) {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status == 200) {
+                        var elm = document.querySelector('.left');
+                        elm.innerHTML = xhr.responseText;
+
+                        [].forEach.call(elm.querySelectorAll("script"), function (oldScript) {
+                            var newScript = document.createElement("script");
+                            newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                            oldScript.parentNode.replaceChild(newScript, oldScript);
+                        });
+                    } else {
+                        alert(xhr.statusText);
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container1">
+        <div class="right">
+            <ul id="plugin">
+                <li style="background: #b6ff00">플러그인 설치/업데이트</li>
+                <li><a href="javascript:;" onclick="go(this, './ex3/');">1.  다운로드</a></li>
+            </ul>
+            <ul id="rpa">
+                <li style="background: #b6ff00">브라우저 제어 샘플</li>
+                <li><a href="javascript:;" onclick="go(this, './ex2/');">1. 제어 샘플</a></li>
+            </ul>
+            <ul id="api">
+                <li style="background: #b6ff00">스크래핑 엔진 API</li>
+                <li><a href="javascript:;" onclick="go(this, './ex/');">2. 엔진 사용승인</a></li>
+                <li><a href="javascript:;" onclick="go(this, './ex/');">3. 엔진 사용종료</a></li>
+                <li><a href="javascript:;" onclick="go(this, './ex/');">4. 스토리지 목록</a></li>
+                <li><a href="javascript:;" onclick="go(this, './ex/');">5. 인증서 목록</a></li>
+            </ul>
+        </div>
+        <div class="left">
+            <span>
+                ※ 주의사항
+            </span>
+            <br />
+            <span>
+                - 제공되는 샘플 코드는 참고용 입니다. 응용해서 사용하십시오.
+            </span><br />
+            <span>
+                - 테스트용 키는 로컬에서만 사용가능하며 웹 서비스는 개발사에 <a href="https://www.itax.kr/" target="_blank" style="color: crimson">등록</a> 후 사용하십시오.
+            </span><br />
+            <span> - 테스트용 키: 9999999999, 비밀번호: 0000</span>
+            <!--
+                * 라이선스 구분<br />
+                - 사이트 라이선스(사이트 라인선스란 한개의 도메인을 말하며, 서브도에인 제외합니다.)<br />
+                - 사용자란 서비스 제공 사업자가 아닌 개인 최종 사용자 입니다.<br />
+                - 기본료 월 25만, 사용자 2백명 무료 사용, 추가 사용자당 월 1200원<br />
+                - 기본료 월 50만, 사용자 5백명 무료 사용, 추가 사용자당 월 1000원<br />
+                - 기본료 월 100만, 사용자 1천명 무료 사용, 추가 사용자당 월 800원<br />
+                - 기본료 월 200만, 사용자 3천명 무료 사용, 추가 사용자당 월 500원<br />
+            -->
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+﻿<span>3. 엔진 사용종료</span>
+<br />
+<button onclick="call()">엔진 사용종료</button>
+<br />
+<span id="msg" style="color: red;"></span>
+
+<script>
+    function call() {
+        _engine.api.signOut()
+            .then(function (data) {
+                alert('종료완료');
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+</script>

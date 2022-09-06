@@ -1,0 +1,465 @@
+﻿<span>제어 샘플</span>
+<br />
+<span>
+    ※ 주의사항
+</span>
+<br />
+<span>
+    - 한번에 하나의 브라우저만 제어 가능며 제어중인 브라우저의 제어가 완료된 후 다시 제어 가능합니다.
+</span>
+<br />
+<span>기다림(초)</span>
+<input id="wait" type="range" min="3" max="10" value="3" oninput="this.nextElementSibling.value = this.value;" style="width: 200px" />
+<output>3</output>
+<br />
+<script>
+    function hangeul() {
+        document.querySelector('#sendkey').value = "";
+        document.querySelector('#sendkey').focus();
+
+        _engine.rpa.getHanMode()
+            .then(function (data) {
+                alert(data.result)
+            })
+    }
+</script>
+<button onclick="hangeul();">한글 모드 확인</button>
+<button onclick="example(false);">구글검색</button>
+<button onclick="example(true);">구글검색 무한반복</button>
+<button onclick="pupupControl(false);">팝업창 제어</button>
+<input type="text" id="sendkey" />
+<button onclick="call2(this);">키 이벤트 생성</button>
+<button onclick="call3(this);">문자열 키 이벤트 생성</button>
+<button onclick="calc();">윈도우 계산기 실행</button>
+<br />
+<br />
+<span id="msg" style="color: red;"></span>
+<div class="mask"></div>
+<script>
+    var nWait = 3000;
+
+    function example(bInfinite) {
+        var msgNode = document.querySelector('#msg');
+        var browser = _engine.rpa.getBrowser();
+
+        msgNode.innerHTML = "";
+        document.querySelector(".mask").style.display = "block";
+
+        _engine.rpa.getPerformance("https://www.google.com/")
+            .then(function (data) {
+                console.log("SETP 1");
+                var network = data["network"];
+                var machine = data["machine"];
+                var speed = Math.max(network, machine);
+                var wait = parseInt(document.querySelector("#wait").value);
+                nWait = Math.max(Math.ceil(speed * 1.5 / 1000), wait) * 1000;
+                
+                return _engine.rpa.checkRPA(browser);
+            })
+            .then(function () {
+                console.log("SETP 2");
+                return _engine.rpa.chromiumEvent(true);
+            })
+            .then(function () {
+                console.log("SETP 3");
+                return _engine.rpa.chromiumOpen("https://www.google.com/");
+            })
+            .then(function () {
+                console.log("SETP 4");
+                return _engine.rpa.waitForCompleted("https://www.google.com/", nWait);
+            })
+            .then(function (tabId) {
+                console.log("SETP 5");
+                return _engine.rpa.chromiumExecuteScript(
+                    tabId,
+                    "document.querySelector('input[name=q]').value='site:https://ko.wikipedia.org Robotic process automation';setTimeout(function(){document.querySelector('input[value=\"Google 검색\"]').click();},100);"
+                );
+            })
+            .then(function () {
+                console.log("SETP 6");
+                return _engine.rpa.waitForCompleted("https://www.google.com/search?q=", nWait);
+            })
+            .then(function () {
+                console.log("SETP 7");
+                return _engine.rpa.chromiumExecuteScript(
+                    _engine.rpa.tabId,
+                    "(function(){ var s = document.documentElement.outerHTML; return s; })();"
+                );
+            })
+            .then(function () {
+                console.log("SETP 8");
+                return _engine.rpa.chromiumExecuteScript(
+                    _engine.rpa.tabId,
+                    'document.querySelector("div a h3").click();'
+                );
+            })
+            .then(function () {
+                console.log("SETP 9");
+                return _engine.rpa.waitForCompleted("https://ko.wikipedia.org/", nWait);
+            })
+            .then(function () {
+                console.log("SETP 10");
+                return _engine.rpa.chromiumExecuteScript(
+                    _engine.rpa.tabId,
+                    'document.querySelector("div a h3").click();'
+                );
+            })
+            .then(function () {
+                console.log("SETP 11");
+                return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
+                    _engine.rpa.tabId,
+                    "(function(){ var s = document.documentElement.outerHTML; return s; })();",
+                    "mw-parser-output",
+                    nWait
+                );
+            })
+            .then(function () {
+                console.log("SETP 12");
+                return _engine.rpa.chromiumExecuteScript(
+                    _engine.rpa.tabId,
+                    "(function(){ var s = document.documentElement.outerHTML; return s; })();"
+                );
+            })
+            .then(function (data) {
+                console.log("SETP 13");
+                return new Promise(function (resolve) {
+                    try {
+                        var msg = "";
+                        var title = data.result.match("<title>([^<>/]+)</title>")[1];
+                        var re = /mw-parser-output"(.*?)<h2>/gi; // /gis ie not working
+                        var mc = data.result.replace(/\r/g, "").replace(/\n/g, "").match(re);
+                        mc = mc[0].match(/<p>((?!<p>).)+<\/p>/gi);
+                        mc.forEach(function (element) {
+                            msg += element.replace(/<[^>]*>/gi, "") + "<br/><br/>";
+                        });
+                        msgNode.innerHTML = title + "<br/><br/>" + msg;
+                    } catch (err) {
+                        alert(err);
+                    }
+                    resolve(); // reject 사용금지. 오류 발생해도 탭 및 이벤트는 종료해야 함.
+                });
+            })
+            .then(function () {
+                console.log("SETP 14");
+                return _engine.rpa.chromiumTabRemove(_engine.rpa.tabId);
+            })
+            .then(function () {
+                console.log("SETP 15");
+                _engine.rpa.chromiumEvent(false);
+                if (bInfinite) setTimeout(function () { example(bInfinite); }, 500);
+            })
+            .catch(function (err) {
+                _engine.rpa.chromiumTabRemove(_engine.rpa.tabId);
+                alert(err);
+            })
+            .finally(function () {
+                document.querySelector(".mask").style.display = "none";
+            });
+    }
+
+    function pupupControl(bInfinite) {
+        var mainTab = 0;
+        var popupTab = 0;
+        var popupEnable = false;
+        var browser = _engine.rpa.getBrowser();
+
+        document.querySelector(".mask").style.display = "block";
+
+        _engine.rpa.getPerformance("https://www.google.com/")
+            .then(function (data) {
+                var network = data["network"];
+                var machine = data["machine"];
+                var speed = Math.max(network, machine);
+                var wait = parseInt(document.querySelector("#wait").value);
+                nWait = Math.max(Math.ceil(speed * 1.5 / 1000), wait) * 1000;
+                console.log(nWait);
+                return _engine.rpa.checkRPA(browser);
+            })
+            .then(function () {
+                console.log("SETP 1");
+                return _engine.rpa.chromiumEvent(true);
+            })
+            .then(function () {
+                console.log("SETP 2");
+                return _engine.rpa.chromiumOpen(
+                    "https://www.hometax.go.kr/", //"https://www.hometax.go.kr/websquare/websquare_cdn.html?w2xPath=/ui/pp/index.xml",
+                );
+            })
+            .then(function () {
+                console.log("SETP 3");
+                return _engine.rpa.waitForCompleted("/ui/pp/index.xml", nWait); // 간헐적인 타임 아웃 발생(원인 캐시됨).
+            })
+            .then((tabId) => {
+                console.log("SETP 4");
+                mainTab = tabId; // waitForCompleted 에서만 tabId 반환
+                return _engine.rpa.chromiumNavigate(
+                    mainTab,
+                    "https://www.hometax.go.kr/websquare/websquare.wq?w2xPath=/ui/pp/index_pp.xml",
+                    "targetInstance=param\r\ninstanceValue=%3Cmap%3E%3CgTopMenuIdx%3E7%3C%2FgTopMenuIdx%3E%3C%2Fmap%3E\r\n",
+                        //.replace(/\r/g, "\\r")
+                        //.replace(/\n/g, "\\n"), // replace: 이스케이프 문자 자바스크립트로 문자열로 변환하여 전송시 개행 문제 발생.
+                    "POST"
+                );
+            })
+            .then(function () {
+                console.log("SETP 5");
+                return _engine.rpa.waitForCompleted(
+                    "https://www.hometax.go.kr/websquare/websquare.wq?w2xPath=/ui/pp/index_pp.xml", nWait
+                );
+            })
+            .then(function () {
+                console.log("SETP 6");
+                // 메인페이지에서 팝업창이 생성되었으면 강제 종료.
+                if (mainTab != _engine.rpa.tabId) {
+                    _engine.rpa.chromiumTabRemove(_engine.rpa.tabId);
+                }
+                return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
+                    mainTab,
+                    "(function(){ var s = document.documentElement.outerHTML; return s; })();",
+                    "txppIframe",
+                    nWait
+                );
+            })
+            .then(function () {
+                console.log("SETP 7");
+                return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
+                    mainTab,
+                    "(function(){ var s = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML; return s; })();",
+                    "textbox1136",
+                    nWait
+                );
+            })
+            .then(function () {
+                console.log("SETP 8");
+                return _engine.rpa.chromiumExecuteScript(
+                    mainTab,
+                    "document.querySelector('#txppIframe').contentWindow.document.querySelector('#textbox1136').click();"
+                );
+            })
+            .then(function () {
+                console.log("SETP 9");
+                return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
+                    mainTab,
+                    "(function(){ var s = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML; return s; })()",
+                    "radio4_input_0",
+                    nWait
+                );
+            })
+            .then(function () {
+                console.log("SETP 10");
+                return _engine.rpa.chromiumExecuteScript(
+                    mainTab,
+                    "document.querySelector('#txppIframe').contentWindow.document.querySelector('#radio4_input_0').click();"
+                );
+            })
+            .then(function () {
+                console.log("SETP 11");
+                return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
+                    mainTab,
+                    "(function(){ var s = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML; return s; })()",
+                    "btnCert",
+                    nWait
+                );
+            })
+            .then(function () {
+                console.log("SETP 12");
+                var script = "";
+                script +=
+                    "document.querySelector('#txppIframe').contentWindow.document.querySelector('#inTxprNm').value='홍길동';";
+                script +=
+                    "document.querySelector('#txppIframe').contentWindow.document.querySelector('#inResNo1').value='121212';";
+                script +=
+                    "document.querySelector('#txppIframe').contentWindow.document.querySelector('#inResNo2').value='1234567';";
+
+                return _engine.rpa.chromiumExecuteScriptEx(mainTab, script);
+            })
+            .then(function () {
+                console.log("SETP 13");
+                var script = "";
+                script +=
+                    "(function(){var p,o; do { try{o=document.querySelector('#txppIframe').contentWindow.open;}catch(e){} } while (null == o);";
+                script +=
+                    "document.querySelector('#txppIframe').contentWindow.open=function(a,b,c){ var i=0; do { try{p=o(a,b,c);}catch(e){} i++; } while (i < 5 && null == p); return p; };"; // windwo.open hook example
+                script +=
+                    "document.querySelector('#txppIframe').contentWindow.document.querySelector('#btnCert').click(); return !(null==p);})();"; // 팝업 허용할것.
+
+                return _engine.rpa.chromiumExecuteScriptEx(mainTab, script, 500);
+            })
+            .then((data) => {
+                console.log("SETP 14");
+                return new Promise((resolve, reject) => {
+                    popupEnable = data.result;
+                    if (popupEnable) {
+                        resolve(popupEnable);
+                    } else {
+                        reject(
+                            "크롬 브라우저의 주소 표시줄에서 차단된 팝업을 허용하고 다시 시도해주세요."
+                        );
+                    }
+                });
+            })
+            .then(function () {
+                console.log("SETP 15");
+                return _engine.rpa.waitForCompleted(
+                    "https://www.hometax.go.kr/websquare/popup.html?w2xPath=/ui/comm/a/b/UTECMABA01.xml", nWait
+                );
+            })
+            .then(function () {
+                console.log("SETP 16");
+                var script = "";
+                script += "document.querySelector('#selMpno1').selectedIndex = 1;";
+                script += "document.querySelector('#edtMpno2').value='1234';";
+                script += "document.querySelector('#edtMpno3').value='4567';";
+                script += "document.querySelector('#rdoTeco_input_3').checked=true;";
+                script +=
+                    "document.querySelector('#chkUtlGncd_input_0').checked=true;";
+                script +=
+                    "document.querySelector('#chkNtplInfrPtusAgr_input_0').checked=true;";
+                script +=
+                    "document.querySelector('#chkPinTrtAgr_input_0').checked=true;";
+
+                popupTab = _engine.rpa.tabId;
+
+                return _engine.rpa.chromiumExecuteScript(popupTab, script);
+            })
+            .then(function () {
+                console.log("SETP 17");
+                return _engine.rpa.chromiumTabRemove(mainTab);
+            })
+            .then(function () {
+                console.log("SETP 18");
+                return _engine.rpa.chromiumTabRemove(popupTab);
+            })
+            .then(function () {
+                console.log("SETP 19");
+                _engine.rpa.chromiumEvent(false);
+                if (bInfinite) pupupControl(bInfinite);
+            })
+            .catch((err) => {
+                if (mainTab > 0) _engine.rpa.chromiumTabRemove(mainTab);
+                if (popupTab > 0) _engine.rpa.chromiumTabRemove(popupTab);
+
+                if (typeof err == "string" && err.indexOf("팝업") > -1) {
+                    _engine.rpa.chromiumExecuteScriptEx(mainTab, `alert('${err}');`);
+                    return;
+                } else {
+                    alert(err);
+                }
+            })
+            .finally(function () {
+                document.querySelector(".mask").style.display = "none";
+            });
+    }
+
+    function sendInput(key) {
+        return new Promise(function (resolve, reject) {
+            _engine.rpa.keyboardEvent(key, 0, 0, 0) // key down
+                .then(function () {
+                    return _engine.rpa.keyboardEvent(key, 0, 2, 0); // key up
+                })
+                .then(function () {
+                    resolve();
+                })
+                .catch(function () {
+                    reject();
+                });
+        });
+    }
+
+    function call2(el) {
+
+        el.disabled = true;
+        document.querySelector('#sendkey').value = "";
+        document.querySelector('#sendkey').focus();
+        // https://docs.microsoft.com/ko-kr/windows/win32/inputdev/virtual-key-codes?redirectedfrom=MSDN
+
+        _engine.rpa.getHanMode()
+            .then(function (data) {
+                if (data.result) { // ime 영어로 변경
+                    sendInput(0x15);
+                }
+            })
+            .then(function (data) {
+                return _engine.rpa.keyboardEvent(0x10, 0, 0, 0) // shift down;
+            })
+            .then(function () {
+                return sendInput(72); // 'h'
+            })
+            .then(function () {
+                return _engine.rpa.keyboardEvent(0x10, 0, 2, 0) // shift up
+            })
+            .then(function (data) {
+                return sendInput(69); // 'e'
+            })
+            .then(function (data) {
+                return sendInput(76); // 'l'
+            })
+            .then(function (data) {
+                return sendInput(76); // 'l'
+            })
+            .then(function (data) {
+                return sendInput(79); // 'o'
+            })
+            .then(function (data) {
+                return sendInput(32); // ' '
+            })
+            .then(function (data) {
+                return _engine.rpa.keyboardEvent(0x10, 0, 0, 0) // shift down
+            })
+            .then(function (data) {
+                return sendInput(82); // 'r'
+            })
+            .then(function (data) {
+                return sendInput(80); // 'p'
+            })
+            .then(function (data) {
+                return sendInput(65); // 'a'
+            })
+            .then(function (data) {
+                return sendInput(0x31); // '!'
+            })
+            .then(function (data) {
+                return _engine.rpa.keyboardEvent(0x10, 0, 2, 0) // shift up
+            })
+            .catch(function (error) {
+                alert(error);
+            })
+            .finally(function () {
+                el.disabled = false;
+            });
+    }
+
+    function call3(el) {
+        el.disabled = true;
+        document.querySelector('#sendkey').value = "";
+        document.querySelector('#sendkey').focus();
+
+        _engine.rpa.sendKeys("우리글 한글 뻵ㅃㅉㄸㄲㅆ ASDF qwer ㅙㅞ!")
+            .catch(function (error) {
+                alert(error);
+            })
+            .finally(function () {
+                el.disabled = false;
+            });
+    }
+
+    function calc() {
+        _engine.rpa.apps('calc')
+            .catch(function (error) {
+                alert(error);
+            });
+    }
+</script>
+
+<style>
+    .mask {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #000;
+        background-color: rgba(0, 0, 0, 0.2);
+        display: none;
+    }
+</style>

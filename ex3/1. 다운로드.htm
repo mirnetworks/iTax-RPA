@@ -1,0 +1,208 @@
+﻿<span>구글 검색</span>
+<br />
+<button onclick="checkPlugin();">플러그인(Setup.msi) 설치 여부</button>
+<br />
+<button onclick="checkPluginReinstall();">플러그인(Setup.msi) 다시 설치</button>
+<br />
+<button onclick="checkPluginUpdate();">플러그인 업데이트 확인</button>
+<br />
+<span>
+    ※ 주의사항
+</span>
+<br />
+<!-- msi가 낮은버전의 내부파일을 패치하지 않습니다. -->
+<span>
+    - 낮은 버전의 Setup.msi를 재설치하려면 [제어판] > [프로그램 제거 또는 변경]에서 "RPA"를 삭제 후 설치하십시오.
+</span>
+<br />
+<span id="msg" style="color: red;"></span>
+<progress id="progress" value="0" max="100" style="width: 100%"></progress>
+<div class="mask"></div>
+<script>
+    // 플러그인 미설치시 설치 여부 검사 후 웹소켓 연결합니다.
+    function checkInstall() {
+        _engine.rpa.checkServer()
+            .then(function () {
+                return _engine.rpa.createSocket(true);
+            })
+            .catch(function (error) {
+                setTimeout(function () { checkInstall(); }, 1000);
+            });
+    }
+
+    // 플러그인 설치여부 확인 및 다운로드.
+    function checkPlugin() {
+        _engine.rpa.getPluginVersion('Setup.msi')
+            .then(function (data) {
+                alert('설치되어있습니다.(' + data.result + ')');
+            })
+            .catch(function () {
+                if (confirm('플러그인을 다운로드 하겠습니까?')) {
+                    checkInstall();
+                    location.href = './download/Setup.msi';
+                }
+            });
+    }
+
+    // 플러그인 설치버전 확인 및 다운로드.
+    function checkPluginReinstall() {
+        var ver, verUrl = './download/version.txt', msiUrl = './download/Setup.msi';
+        var myVer = '', newVer = '';
+        var nMyVer = 0; nNewVer = 0;
+        _engine.rpa.getPluginVersion('Setup.msi')
+            .then(function (data) {
+                myVer = data.result;
+                return _engine.rpa.getUpdateVersion(verUrl)
+            })
+            .then(function (data) {
+                newVer = data["Setup.msi"];
+
+                if (myVer !== 'TEST_VERSION') {
+
+                    ver = myVer.split('.');
+                    nMyVer |= parseInt(ver[0]) << 24; // 8bit
+                    nMyVer |= parseInt(ver[1]) << 16; // 8bit
+                    nMyVer |= parseInt(ver[2]);       // 16bit
+
+                    ver = newVer.split('.');
+                    nNewVer |= parseInt(ver[0]) << 24; // 8bit
+                    nNewVer |= parseInt(ver[1]) << 16; // 8bit
+                    nNewVer |= parseInt(ver[2]);       // 16bit
+
+                    //console.log('Old: ' + nMyVer);
+                    //console.log('New: ' + nNewVer);
+                    // 특정 버전을 강제 설치하게 가능합니다.
+                    if (nMyVer < nNewVer) {
+                        if (confirm('플러그인을 다시 설치 하겠습니까?')) {
+                            _engine.rpa.stopServer()
+                                .then(function () {
+                                    console.log('rpa.exe stopped.');
+                                    checkInstall(); // 설치여부 검사 후 웹소켓 연결
+                                    location.href = msiUrl; // 플러그인 다운로드
+                                })
+                                .catch(function (error) {
+                                    alert(error);
+                                });
+                        }
+                    } else {
+                        alert('최신 버전입니다.');
+                    }
+                }
+            })
+            .catch(function () {
+                alert('플러그인을 설치해 주세요.');
+            });
+    }
+
+    // 설치된 플러그인을 업데이트 합니다.
+    function checkPluginUpdate() {
+
+        var interval;
+        var progressTotal = 0;
+        var progressPercent = 0;
+        var verUrl = './download/version.txt';
+        var path = window.location.pathname;
+        var cab = location.protocol + '//' + location.host + path.substr(0, path.lastIndexOf('/')) + "/download/rpa.cab"; // Fully qualified domain name.
+        var myVer = '', newVer = '';
+        var nMyVer = 0; nNewVer = 0;
+        console.log(cab);
+
+        // 업데이트시 cab파일 다운로드 받은 사이즈 및 전체 사이즈가 소켓 이벤트로 발생합니다.
+        _engine.rpa.on("message", function (event) {
+            var data = JSON.parse(event.data);
+            progressTotal += data.written;
+            progressPercent = Math.ceil((progressTotal / data.size) * 100);
+
+            document.querySelector("#progress").value = progressPercent;
+            document.querySelector("#msg").innerHTML = "업데이트가 완료될 때까지 잠시 기다려 주세요.(" + progressPercent + "%)";
+            if (progressPercent == 100) {
+                progressPercent = 0;
+                _engine.rpa.off("message"); // 필수 호출.
+                document.querySelector("#msg").innerHTML = "업데이트 완료중.";
+            }
+        });
+
+        _engine.rpa.getUpdateVersion(verUrl)
+            .then(function (data) {
+                newVer = data["rpa.exe"];
+                return _engine.rpa.getPluginVersion('rpa.exe');
+            })
+            .then(function (data) {
+                myVer = data.result;
+
+                ver = myVer.split('.');
+                nMyVer |= parseInt(ver[1]) << 24; // 8bit
+                nMyVer |= parseInt(ver[2]) << 16; // 8bit
+                nMyVer |= parseInt(ver[3]);       // 16bit
+
+                ver = newVer.split('.');
+                nNewVer |= parseInt(ver[1]) << 24; // 8bit
+                nNewVer |= parseInt(ver[2]) << 16; // 8bit
+                nNewVer |= parseInt(ver[3]);       // 16bit
+
+                return new Promise(function (resolve, reject) {
+                    if (nMyVer < nNewVer) {
+                        if (confirm('최신 버전으로 업데이트 하겠습니까?')) {
+                            _engine.rpa.updateEngine(cab)
+                                .then(function (data) { resolve(data) })
+                                .catch(function (error) { reject(error); });
+                        }
+                    } else {
+                        reject('최신 버전입니다.');
+                    }
+                });
+            })
+            .then(function (data) {
+                if (data.result == -1) {
+                    alert('엔진 사용 미승인.');
+                } else if (data.result == 1) {
+                    // 업데이트 후 소켓 다시 연결.
+                    var bErr = false;
+                    interval = setInterval(function () {
+                        document.querySelector("#msg").innerHTML += ".";
+                    }, 1000);
+                    document.querySelector(".mask").style.display = "block";
+                    var i = setInterval(function () {
+                        _engine.rpa.checkServer()
+                            .then(function () {
+                                if (bErr) {
+                                    bErr = false;
+                                    clearInterval(i);
+                                    clearInterval(interval);
+                                    _engine.rpa.createSocket(false, function (state) {
+                                        document.querySelector("#msg").innerHTML = "";
+                                        document.querySelector("#progress").value = 0;
+                                        document.querySelector(".mask").style.display = "none";
+                                    });
+                                }
+                            })
+                            .catch(function (e) {
+                                bErr = true;
+                            });
+                    }, 500);
+
+                } else {
+                    alert('업데이트에 실패하였습니다.\nCAB 파일을 확인해 주세요.');
+                }
+            })
+            .catch(function (error) {
+                alert(error);
+            })
+            .finally(function () {
+                _engine.rpa.off("message");
+            });
+    }
+</script>
+
+<style>
+    .mask {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #000;
+        background-color: rgba(0, 0, 0, 0.2);
+        display: none;
+    }
+</style>

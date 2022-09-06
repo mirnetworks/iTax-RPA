@@ -1,0 +1,35 @@
+﻿html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+a {
+    color: #000
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.container1 {
+    height: 100%;
+    overflow: hidden;
+}
+
+.right {
+    width: 300px;
+    height: 100%;
+    float: right;
+    background: #aafed6;
+}
+
+.left {
+    float: none;
+    background: #e8f6fe;
+    width: auto;
+    height: 100%;
+    overflow: hidden;
+}

@@ -1,0 +1,43 @@
+﻿<span>4. 스토리지 목록</span>
+<br />
+<select id="storage" style="width: 150px"></select>
+<br />
+<span id="msg" style="color: red;"></span>
+
+<script>
+    function getStorageName(type) {
+        var name = '';
+        switch (type) {
+            case 'Local':
+            case 'Fixed':
+                name = '로컬 디스크';
+                break;
+            case 'CDROM':
+                name = 'CD-ROM';
+                break;
+            case 'Removable':
+                name = '이동식 디스크';
+                break;
+        }
+        return name;
+    }
+    (function call() {
+        _engine.api.selectStorageInfo()
+            .then(function (data) {
+                var storage = document.querySelector("#storage");
+                var len = storage.options.length;
+                for (var i = 0; i < len; i++) {
+                    storage.remove(0);
+                }
+                data["result"].forEach(function (obj) {
+                    var opt = document.createElement("option");
+                    opt.text = getStorageName(obj.type) + ' (' + obj.diskname + ')';
+                    opt.value = obj.diskname;
+                    storage.options.add(opt);
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    })();
+</script>
