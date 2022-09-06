@@ -12,22 +12,11 @@
 <input id="wait" type="range" min="3" max="10" value="3" oninput="this.nextElementSibling.value = this.value;" style="width: 200px" />
 <output>3</output>
 <br />
-<script>
-    function hangeul() {
-        document.querySelector('#sendkey').value = "";
-        document.querySelector('#sendkey').focus();
-
-        _engine.rpa.getHanMode()
-            .then(function (data) {
-                alert(data.result)
-            })
-    }
-</script>
-<button onclick="hangeul();">한글 모드 확인</button>
 <button onclick="example(false);">구글검색</button>
 <button onclick="example(true);">구글검색 무한반복</button>
 <button onclick="pupupControl(false);">팝업창 제어</button>
 <input type="text" id="sendkey" />
+<button onclick="hangeul();">한/영 변경</button>
 <button onclick="call2(this);">키 이벤트 생성</button>
 <button onclick="call3(this);">문자열 키 이벤트 생성</button>
 <button onclick="calc();">윈도우 계산기 실행</button>
@@ -37,6 +26,7 @@
 <div class="mask"></div>
 <script>
     var nWait = 3000;
+
 
     function example(bInfinite) {
         var msgNode = document.querySelector('#msg');
@@ -182,22 +172,20 @@
             .then(function () {
                 console.log("SETP 2");
                 return _engine.rpa.chromiumOpen(
-                    "https://www.hometax.go.kr/", //"https://www.hometax.go.kr/websquare/websquare_cdn.html?w2xPath=/ui/pp/index.xml",
+                    "https://www.hometax.go.kr/" //"https://www.hometax.go.kr/websquare/websquare_cdn.html?w2xPath=/ui/pp/index.xml",
                 );
             })
             .then(function () {
                 console.log("SETP 3");
                 return _engine.rpa.waitForCompleted("/ui/pp/index.xml", nWait); // 간헐적인 타임 아웃 발생(원인 캐시됨).
             })
-            .then((tabId) => {
+            .then(function (tabId) {
                 console.log("SETP 4");
                 mainTab = tabId; // waitForCompleted 에서만 tabId 반환
                 return _engine.rpa.chromiumNavigate(
                     mainTab,
                     "https://www.hometax.go.kr/websquare/websquare.wq?w2xPath=/ui/pp/index_pp.xml",
                     "targetInstance=param\r\ninstanceValue=%3Cmap%3E%3CgTopMenuIdx%3E7%3C%2FgTopMenuIdx%3E%3C%2Fmap%3E\r\n",
-                        //.replace(/\r/g, "\\r")
-                        //.replace(/\n/g, "\\n"), // replace: 이스케이프 문자 자바스크립트로 문자열로 변환하여 전송시 개행 문제 발생.
                     "POST"
                 );
             })
@@ -285,9 +273,9 @@
 
                 return _engine.rpa.chromiumExecuteScriptEx(mainTab, script, 500);
             })
-            .then((data) => {
+            .then(function (data) {
                 console.log("SETP 14");
-                return new Promise((resolve, reject) => {
+                return new Promise(function (resolve, reject) {
                     popupEnable = data.result;
                     if (popupEnable) {
                         resolve(popupEnable);
@@ -335,12 +323,12 @@
                 _engine.rpa.chromiumEvent(false);
                 if (bInfinite) pupupControl(bInfinite);
             })
-            .catch((err) => {
+            .catch(function (err) {
                 if (mainTab > 0) _engine.rpa.chromiumTabRemove(mainTab);
                 if (popupTab > 0) _engine.rpa.chromiumTabRemove(popupTab);
 
                 if (typeof err == "string" && err.indexOf("팝업") > -1) {
-                    _engine.rpa.chromiumExecuteScriptEx(mainTab, `alert('${err}');`);
+                    _engine.rpa.chromiumExecuteScriptEx(mainTab, "alert(" + err + ");");
                     return;
                 } else {
                     alert(err);
@@ -447,6 +435,18 @@
         _engine.rpa.apps('calc')
             .catch(function (error) {
                 alert(error);
+            });
+    }
+
+    function hangeul() {
+        document.querySelector('#sendkey').focus();
+
+        sendInput(0x15)
+            .then(function () {
+                return _engine.rpa.getHanMode();
+            })
+            .then(function (data) {
+                document.querySelector('#sendkey').value = data.result ? "한글" : "English";
             });
     }
 </script>
