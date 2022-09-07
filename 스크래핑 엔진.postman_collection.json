@@ -1,0 +1,4229 @@
+{
+	"info": {
+		"_postman_id": "c1b1d925-19fe-456b-8036-e23f4f299ea4",
+		"name": "스크래핑 엔진",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "2. 엔진 사용승인",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SignIn\",\r\n    \"params\": {\r\n        \"0\": \"1148721926\",\r\n        \"1\": \"0000\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. 엔진 사용종료",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SignOut\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. 스토리지 목록",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SelectStorageInfo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. 인증서 목록",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"GetCertList\",\r\n    \"params\": {\r\n        \"0\": \"D:\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. 엔진 설치(Setup.msi) 버전",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "https://127.0.0.1:39802/version",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"version"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. 엔진 업데이트",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "https://127.0.0.1:39802/update?url=https%3A%2F%2Fwww.itax.kr%2Fupdate",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"update"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "https%3A%2F%2Fwww.itax.kr%2Fupdate"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. 로컬 서버(엔진) 중지",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "https://127.0.0.1:39802/stop",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"stop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9. 쿠키 삭제",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"ClearCookies\",\r\n    \"params\": {\r\n        \"0\": 3\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10 서버 응답 속도",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"ServerResponseSpeed\",\r\n    \"params\": {\r\n        \"0\": \"https://www.hometax.go.kr/\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11. 홈택스 사용자 정보",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"GetUserInfo\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12. 홈택스 마지막 오류 메시지(내부 처리 중 발생 오류)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"GetLastMessage\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "13. 엔진 연동(API서버) 상태",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchApiStatus\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "14. 홈택스 요청 XML 유효성 값 추가",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"WqAction\",\r\n    \"params\": {\r\n        \"0\": \"<map></map>\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "15. 홈택스 쿠키값 가져오기",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"GetCookies\",\r\n    \"params\": {\r\n        \"0\": \"https://www.hometax.go.kr/\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "16. 홈택스 통합관리번호 가져오기",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"GetTin\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "17. 홈택스 로그인 여부",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"IsLogin\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "18. 홈택스 모듈 설치 여부",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"CheckHometaxModule\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "19. 인증서 만료일 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"GetCertificateExpiryDate\",\r\n    \"params\": {\r\n        \"0\": \"D:\",\r\n        \"1\": \"0\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "20. 홈택스 아이디 로그인",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"IDLogin\",\r\n    \"params\": {\r\n        \"0\": \"id\",\r\n        \"1\": \"password\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "21. 홈택스 인증서 로그인",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"CertLogin\",\r\n    \"params\": {\r\n        \"0\": \"D:\",\r\n        \"1\": \"8\",\r\n        \"2\": \"cert_password\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "22. 홈택스 아이디/인증서(부서사용자) 로그인",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"IDCertLogin\",\r\n    \"params\": {\r\n        \"0\": \"id\",\r\n        \"1\": \"password\",\r\n        \"2\": \"D:\",\r\n        \"3\": \"8\",\r\n        \"4\": \"cert_password\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "23. [사용금지] 계정(아이디) 비밀번호 변경",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"ChangePassword\",\r\n    \"params\": {\r\n        \"0\": \"change_password\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "24. 지문인증 로그인 QR코드 가져오기",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"GetFingerprintLoginQrCode\",\r\n    \"params\": {}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "25. 지문인증 로그인",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"FingerprintLogin\",\r\n    \"params\": {\r\n        \"0\": \"123456789\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "26. 홈택스 세무대리인 로그인",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"TaxAgentLogin\",\r\n    \"params\": {\r\n        \"0\": \"txaaAdmNo\",\r\n        \"1\": \"txaaPswd\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "27. 홈택스 보안카드 인증 위치 가져오기",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"GetSecurityCardPos\",\r\n    \"params\": {\r\n        \"0\": \"tin\",\r\n        \"1\": \"etxivSecCardId\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "28. 홈택스 보안카드 인증 로그인",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SecurityCardAuth\",\r\n    \"params\": {\r\n        \"0\": \"tin\",\r\n        \"1\": \"secCardId\",\r\n        \"2\": \"rnnoCntnSt1\",\r\n        \"3\": \"rnnoCntnSt2\",\r\n        \"4\": true\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "29. [사용금지] 홈택스 사업장 보안카드 로그인",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SecurityCard\",\r\n    \"params\": {\r\n        \"0\": \"1234567890\",\r\n        \"1\": \"|\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "30. 다중사업장 목록",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"MultiplePlace\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "31. 수임사업자 목록(선택)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SelectDelegator\",\r\n    \"params\": {\r\n        \"0\": \"1234567890\",\r\n        \"1\": 1,\r\n        \"2\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "32. 다중 사업장 선택",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SelectMultiplePlace\",\r\n    \"params\": {\r\n        \"0\": \"1234567890\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "33. 사업장 선택 해제(개인 계정으로 전환)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"ReleaseMultiplePlace\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "34. 수임 사업자 해제",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"ReleaseDelegator\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "35. 로그인 사용자 정보",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"GetSessionInfo\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "36. 홈택스 로그아웃",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"Logout\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "37. 전자 세금계산서(계산서) 월/분기별 목록을 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchMonthlyTaxInvoice\",\r\n    \"params\": {\r\n        \"0\": \"01\",\r\n        \"1\": \"01\",\r\n        \"2\": \"\",\r\n        \"3\": \"01\",\r\n        \"4\": \"\",\r\n        \"5\": \"\",\r\n        \"6\": 1,\r\n        \"7\": 100,\r\n        \"8\": \"20220701\",\r\n        \"9\": \"20221231\",\r\n        \"10\": \"\",\r\n        \"11\": \"00\",\r\n        \"12\": \"\",\r\n        \"13\": \"\",\r\n        \"14\": \"all\",\r\n        \"15\": \"all\",\r\n        \"16\": \"all\",\r\n        \"17\": \"1\",\r\n        \"18\": \"10\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "38. 전자세금계산서 상세조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"TaxinvoiceDetail\",\r\n    \"params\": {\r\n        \"0\": \"20220801-10000000-00000000\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "39. 전자 세금계산서(계산서) 월/분기별 목록을 다운로드",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"DownloadMonthlyTaxInvoice\",\r\n    \"params\": {\r\n        \"0\": \"01\",\r\n        \"1\": \"01\",\r\n        \"2\": \"\",\r\n        \"3\": \"01\",\r\n        \"4\": \"\",\r\n        \"5\": \"\",\r\n        \"6\": 1,\r\n        \"7\": 100,\r\n        \"8\": \"20220701\",\r\n        \"9\": \"20221231\",\r\n        \"10\": \"\",\r\n        \"11\": \"00\",\r\n        \"12\": \"\",\r\n        \"13\": \"\",\r\n        \"14\": \"all\",\r\n        \"15\": \"all\",\r\n        \"16\": \"all\",\r\n        \"17\": \"1\",\r\n        \"18\": \"10\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "40. 현금영수증 매입내역(지출증빙) 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptPurchase\",\r\n    \"params\": {\r\n        \"0\": 2019,\r\n        \"1\": 2,\r\n        \"2\": 1,\r\n        \"3\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "41. 사업용신용카드 매입세액 공제 내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCreditCardPurchaseTax\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 0,\r\n        \"2\": \"\",\r\n        \"3\": 1,\r\n        \"4\": 20,\r\n        \"5\": 2,\r\n        \"6\": \"all\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "42. 화물운전자복지카드 매입세액 공제 내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchFreightDriverCard\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 8,\r\n        \"2\": 1,\r\n        \"3\": 10,\r\n        \"4\": 0,\r\n        \"5\": \"all\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "43. 부가가치세 신고내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchVatReport\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 7,\r\n        \"2\": \"\",\r\n        \"3\": 1,\r\n        \"4\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "44. 법인세 신고내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCorporateTaxReport\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 3,\r\n        \"2\": \"\",\r\n        \"3\": 1,\r\n        \"4\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "45. 종합소득세 신고내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchIncomeTaxReport\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 5,\r\n        \"2\": \"\",\r\n        \"3\": 1,\r\n        \"4\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "46. 원천세 신고내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchWithholdingTax\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 5,\r\n        \"2\": \"\",\r\n        \"3\": 1,\r\n        \"4\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "47. 납부내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"MyNtsTaxPayment\",\r\n    \"params\": {\r\n        \"0\": \"20220101\",\r\n        \"1\": \"20220731\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "48. 환급금 상세조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"MyNtsTaxRefund\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "49. 고지내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"MyNtsTaxNotify\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "50. 체납내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"MyNtsTaxArrears\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "51. 체납안내문 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"MyNtsTaxArrearsNotice\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "52. [사용금지] 부가가치세 정기신고(확정/예정) 정보",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"VatReportFrontDetail\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": \"01\",\r\n        \"2\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "53. 부가가치세 신고내역(납부서) 다운로드",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"DownloadVatReport\",\r\n    \"params\": {\r\n        \"0\": \"-\",\r\n        \"1\": 2022,\r\n        \"2\": 7,\r\n        \"3\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "54. 종합소득세 신고내역(납부서) 다운로드",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"DownloadIncomeTaxReport\",\r\n    \"params\": {\r\n        \"0\": \"-\",\r\n        \"1\": 2022,\r\n        \"2\": 5,\r\n        \"3\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "55. 신용카드 매출자료 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCreditCardSales\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": 2022,\r\n        \"2\": 1,\r\n        \"3\": 2\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "56. 사업용계좌(공익법인계좌) 신고현황 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchBusinessAccount\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": 1,\r\n        \"2\": 20\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "57. 고지내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchNotifyLIst\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": 1,\r\n        \"2\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "58. 체납내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchArrears\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": 1,\r\n        \"2\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "59. 환급금 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchRefund\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 6,\r\n        \"2\": \"\",\r\n        \"3\": 1,\r\n        \"4\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "60. 부가가치세 신고 도움 서비스",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchVATHelpService\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 2,\r\n        \"2\": \"01\",\r\n        \"3\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "61. 부가세 예정고지 세액 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchVATNotify\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": 1,\r\n        \"2\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "62. 부가가치세 예정고지(부과) 대상자 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchVATNotifyTarget\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 1,\r\n        \"2\": 1,\r\n        \"3\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "63. 화물운전자복지카드 누계 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchFreightDriverCardTotal\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "64. 부가가치세 성실신고 안내문 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchVATReportNotify\",\r\n    \"params\": {\r\n        \"0\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "65. 사업장현황신고 도움 서비스 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchBizPlaceHelpService\",\r\n    \"params\": {\r\n        \"0\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "66. 종합소득세 신고도움 서비스 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchGeneralIncomeTaxHelp\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": \"1\",\r\n        \"2\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "67. 법인세 신고도움 서비스 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCorporateTaxHelpService\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": \"5142055360\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "68. 법인정보",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCorporateTaxInfo\",\r\n    \"params\": {\r\n        \"0\": \"10121\",\r\n        \"1\": \"01\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "69. 연금/건강/고용/산재 보험료 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchSocialInsurance\",\r\n    \"params\": {\r\n        \"0\": 2021,\r\n        \"1\": \"\",\r\n        \"2\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "70. 현지기업고유번호 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchIdentificationNumber\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": 1,\r\n        \"2\": 10,\r\n        \"3\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "71. 수임납세자 현금영수증 매출내역누계 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptSalesTotal\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "72. 수임납세자 사업용신용카드 누계 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCreditCardSum\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "73. 전자세금계산서 합계표 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchTaxInvoiceSumTable\",\r\n    \"params\": {\r\n        \"0\": \"01\",\r\n        \"1\": \"02\",\r\n        \"2\": \"03\",\r\n        \"3\": 2022,\r\n        \"4\": 3\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "74. 전자세금계산서 합계표 매출(매입)처별 명세 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchTaxInvoiceSumSpecs\",\r\n    \"params\": {\r\n        \"0\": \"01\",\r\n        \"1\": \"02\",\r\n        \"2\": \"03\",\r\n        \"3\": 2022,\r\n        \"4\": 3,\r\n        \"5\": 1,\r\n        \"6\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "75. 부가가치세 매입자납부특례 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchVATSpecialCaseAccount\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": 1,\r\n        \"2\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "76. 부가가치세 매입자납부특례 조회(거래내역조회)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchVATSpecialCaseTranHistory\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": \"\",\r\n        \"2\": \"05\",\r\n        \"3\": 2022,\r\n        \"4\": 3,\r\n        \"5\": 1,\r\n        \"6\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "77. 부가가치세 매입자납부특례 조회(국고입금내역)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchVATSpecialCaseDeposit\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": \"\",\r\n        \"2\": 2022,\r\n        \"3\": 3,\r\n        \"4\": 1,\r\n        \"5\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "78. 부가가치세 매입자납부특례 조회(기납부세액)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchVATSpecialCasePayment\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": 2022,\r\n        \"2\": 3\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "79. 수임납세자 납부서 출력 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchPaymentStatementPrint\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 7,\r\n        \"2\": \"1\",\r\n        \"3\": \"10\",\r\n        \"4\": \"\",\r\n        \"5\": \"\",\r\n        \"6\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "80. 회원정보 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchMemberInfo\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "81. 거래처 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCustomers\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": \"\",\r\n        \"2\": \"\",\r\n        \"3\": 1,\r\n        \"4\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "82. 거래처 상세보기 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCustomerDetail\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": \"\",\r\n        \"2\": 0,\r\n        \"3\": 0\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "83. 종사업장 번호 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchPlaceNumber\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": 1,\r\n        \"2\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "84. 거래처 건별 등록",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"InsertCustomer\",\r\n    \"params\": {\r\n        \"0\": \"{\\\"txprDscmNoEncCntn\\\":\\\"2208183676\\\",\\\"dmnrMpbNo\\\":0,\\\"tnmNm\\\":\\\"상호(법인명)\\\",\\\"rprsFnm\\\":\\\"대표자\\\",\\\"pfbAdr\\\":\\\"사업장 주소\\\",\\\"bcNm\\\":\\\"업태\\\",\\\"itmNm\\\":\\\"종목\\\",\\\"list\\\":[{\\\"chrgDprtNm\\\":\\\"주담당부서명\\\",\\\"chrgNm\\\":\\\"주담당자명\\\",\\\"chrgTelno\\\":\\\"070-1111-1111\\\",\\\"chrgMpno\\\":\\\"01011111111\\\",\\\"chrgFaxno\\\":\\\"021111111\\\",\\\"chrgEmlAdr\\\":\\\"test1@gmail.com\\\",\\\"chrgRmrkCntn\\\":\\\"주담당자 비고\\\"},{\\\"chrgDprtNm\\\":\\\"부담당부서명\\\",\\\"chrgNm\\\":\\\"부담당자명\\\",\\\"chrgTelno\\\":\\\"070-2222-2222\\\",\\\"chrgMpno\\\":\\\"01022222222\\\",\\\"chrgFaxno\\\":\\\"022222222\\\",\\\"chrgEmlAdr\\\":\\\"test2@gmail.com\\\",\\\"chrgRmrkCntn\\\":\\\"부담당자 비고\\\"}]}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "85. 거래처 정보 변경",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"UpdateCustomer\",\r\n    \"params\": {\r\n        \"0\": \"{\\\"txprDscmNoEncCntn\\\":\\\"2208183676\\\",\\\"dmnrMpbNo\\\":0,\\\"tnmNm\\\":\\\"상호(법인명)\\\",\\\"rprsFnm\\\":\\\"대표자\\\",\\\"pfbAdr\\\":\\\"사업장 주소\\\",\\\"bcNm\\\":\\\"업태\\\",\\\"itmNm\\\":\\\"종목\\\",\\\"list\\\":[{\\\"chrgDprtNm\\\":\\\"주담당부서명\\\",\\\"chrgNm\\\":\\\"주담당자명\\\",\\\"chrgTelno\\\":\\\"070-1111-1111\\\",\\\"chrgMpno\\\":\\\"01011111111\\\",\\\"chrgFaxno\\\":\\\"021111111\\\",\\\"chrgEmlAdr\\\":\\\"test1@gmail.com\\\",\\\"chrgRmrkCntn\\\":\\\"주담당자 비고\\\"},{\\\"chrgDprtNm\\\":\\\"부담당부서명\\\",\\\"chrgNm\\\":\\\"부담당자명\\\",\\\"chrgTelno\\\":\\\"070-2222-2222\\\",\\\"chrgMpno\\\":\\\"01022222222\\\",\\\"chrgFaxno\\\":\\\"022222222\\\",\\\"chrgEmlAdr\\\":\\\"test2@gmail.com\\\",\\\"chrgRmrkCntn\\\":\\\"부담당자 비고\\\"}]}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "86. 거래처 삭제",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"DeleteCustomer\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": 0\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "87. 전자 세금계산서(계산서) 발급자 정보 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"IssuerInfomation\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "88. 납세자 등록번호 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchBizPlaceInfomation\",\r\n    \"params\": {\r\n        \"0\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "89. 전자 세금계산서(계산서) 발급 보안카드 인증",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"IssueTaxinvoiceAuth\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api?",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "90. [사용금지] 전자 세금계산서(계산서) 발급(인증서, 보안카드 발급)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"IssueTaxinvoice\",\r\n    \"params\": {\r\n        \"0\": \"{}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "91. 당초 전자 세금계산서 조회(수정발급용)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchInitiallyTaxinvoice\",\r\n    \"params\": {\r\n        \"0\": \"02\",\r\n        \"1\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "92. [사용금지] 수정 전자 세금계산서(계산서) 발급(인증서, 보안카드 발급)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"IssueModifyTaxinvoice\",\r\n    \"params\": {\r\n        \"0\": \"{}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "93. 현금영수증 사용내역(소득공제) 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptUsage\",\r\n    \"params\": {\r\n        \"0\": \"2020-12-01\",\r\n        \"1\": \"2020-12-31\",\r\n        \"2\": 1,\r\n        \"3\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "94. 현금영수증 매출내역을 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptSales\",\r\n    \"params\": {\r\n        \"0\": \"2020-10-01\",\r\n        \"1\": \"2020-12-31\",\r\n        \"2\": \"all\",\r\n        \"3\": 1,\r\n        \"4\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "95. 현금영수증 사용내역(소득공제) 누계 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptUsageTotal\",\r\n    \"params\": {\r\n        \"0\": 2020\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "96. 현금영수증 매입내역(지출증빙) 누계 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptPurchaseTotal\",\r\n    \"params\": {\r\n        \"0\": 2019,\r\n        \"1\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "97. 현금영수증 매입세액 공제금액 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptDeductionAmt\",\r\n    \"params\": {\r\n        \"0\": \"2019-02-01\",\r\n        \"1\": \"2019-02-28\",\r\n        \"2\": \"all\",\r\n        \"3\": 1,\r\n        \"4\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "98. [공제변경용] 현금영수증 매입세액 공제 확인 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptPurchaseTax\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 0,\r\n        \"2\": 1,\r\n        \"3\": 20,\r\n        \"4\": 1,\r\n        \"5\": \"all\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "99. 현금영수증 취소거래 발급 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptCancelTran\",\r\n    \"params\": {\r\n        \"0\": \"2020-12-01\",\r\n        \"1\": \"2020-12-31\",\r\n        \"2\": 1,\r\n        \"3\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "100. 현금영수증 당일 발급 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptTodayTran\",\r\n    \"params\": {\r\n        \"0\": \"\",\r\n        \"1\": 1,\r\n        \"2\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "101. 현금영수증 발급결과 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptIssueResult\",\r\n    \"params\": {\r\n        \"0\": \"2020-12-01\",\r\n        \"1\": \"2020-12-31\",\r\n        \"2\": 1,\r\n        \"3\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "102. 현금영수증 발급현황 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptMonthlyIssue\",\r\n    \"params\": {\r\n        \"0\": 2020\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "103. 현금영수증 발급자 정보 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCashReceiptIssuerInfo\",\r\n    \"params\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "104. 현금영수증 승인거래 발급",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"IssueCashReceipt\",\r\n    \"params\": {\r\n        \"0\": \"1234567890\",\r\n        \"1\": \"01\",\r\n        \"2\": \"0\",\r\n        \"3\": \"\",\r\n        \"4\": 1000\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "105. 현금영수증 취소거래 발급",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"IssueCancelCashReceipt\",\r\n    \"params\": {\r\n        \"0\": \"{}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "106. 현금영수증 당일 발급 정정",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"IssueTodayModifyCashReceipt\",\r\n    \"params\": {\r\n        \"0\": \"{}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "107. 현금영수증 당일 발급 취소",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"IssueTodayCancelCashReceipt\",\r\n    \"params\": {\r\n        \"0\": \"{}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/apia",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"apia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "108. 사업자 등록 상태 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchBusinessLicenseStatus\",\r\n    \"params\": {\r\n        \"0\": \"5142055360\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "109. 홈택스 서버 시간",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"HometaxServerTime\",\r\n    \"params\": {\r\n        \"0\": \"yyyy-MM-dd HH:mm:ss\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "110. 사업용신용카드 매입세액 공제금액 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchCreditCardDeductedAmount\",\r\n    \"params\": {\r\n        \"0\": \"2022-07-01\",\r\n        \"1\": \"2022-12-31\",\r\n        \"2\": \"all\",\r\n        \"3\": 1,\r\n        \"4\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "111. 사업장현황신고서 제출내역 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchPresentStateBizPlace\",\r\n    \"params\": {\r\n        \"0\": \"2022-01-01\",\r\n        \"1\": \"2022-02-10\",\r\n        \"2\": 1,\r\n        \"3\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "112. 사업장현황신고서 다운로드",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"DownloadPresentStateBizPlace\",\r\n    \"params\": {\r\n        \"0\": \"신고민원ID\",\r\n        \"1\": 2022,\r\n        \"2\": 2,\r\n        \"3\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "113. 근로소득 간이세액표 조회(원천징수)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"SearchEarnedIncomeTax\",\r\n    \"params\": {\r\n        \"0\": 2500000,\r\n        \"1\": 4,\r\n        \"2\": 2\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "114. 신용카드 / 판매(결제)대행 매출자료 조회",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://127.0.0.1/",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"action\": \"PaymentAgencySales\",\r\n    \"params\": {\r\n        \"0\": 2022,\r\n        \"1\": 1,\r\n        \"2\": 2,\r\n        \"3\": 1,\r\n        \"4\": 50,\r\n        \"5\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://127.0.0.1:39802/api",
+					"protocol": "https",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "39802",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
