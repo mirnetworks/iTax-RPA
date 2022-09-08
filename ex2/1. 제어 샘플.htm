@@ -361,7 +361,13 @@
         document.querySelector('#sendkey').focus();
         // https://docs.microsoft.com/ko-kr/windows/win32/inputdev/virtual-key-codes?redirectedfrom=MSDN
 
-        _engine.rpa.getHanMode()
+        _engine.rpa.getKeybdState(0x14)
+            .then(function (data) {
+                if ((data.result & 0x0001) != 0) {
+                    sendInput(0x14); // Caps Lock OFF
+                }
+                return _engine.rpa.getHanMode();
+            })
             .then(function (data) {
                 if (data.result) { // ime 영어로 변경
                     sendInput(0x15);
@@ -422,7 +428,13 @@
         document.querySelector('#sendkey').value = "";
         document.querySelector('#sendkey').focus();
 
-        _engine.rpa.sendKeys("우리글 한글 뻵ㅃㅉㄸㄲㅆ ASDF qwer ㅙㅞ!")
+        _engine.rpa.getKeybdState(0x14)
+            .then(function (data) {
+                if ((data.result & 0x0001) != 0) {
+                    sendInput(0x14); // Caps Lock OFF
+                }
+                return _engine.rpa.sendKeys("우리글 한글 뻵ㅃㅉㄸㄲㅆ ASDF qwer ㅙㅞ!");
+            })
             .catch(function (error) {
                 alert(error);
             })

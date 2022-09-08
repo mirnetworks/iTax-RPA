@@ -158,7 +158,11 @@
                 } else if (data.result == 1) {
                     // 업데이트 후 소켓 다시 연결.
                     var bErr = false;
+                    var i = 0;
                     interval = setInterval(function () {
+                        if (i++ >= 5) {
+                            bErr = true;
+                        }
                         document.querySelector("#msg").innerHTML += ".";
                     }, 1000);
                     document.querySelector(".mask").style.display = "block";

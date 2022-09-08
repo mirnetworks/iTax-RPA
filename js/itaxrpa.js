@@ -182,6 +182,14 @@ var _engine = new function () {
             return request(apiServer + "/stop?t=" + new Date().getTime(), '', "GET");
         }
 
+        this.getKeybdState = function (vKey) {
+            return new Promise(function (resolve, reject) {
+                return request(apiServer + "/api", { action: "GetKeybdState", params: { 0: vKey } }, "POST")
+                    .then(function (data) { resolve(JSON.parse(data)); })
+                    .catch(function (error) { reject(error); })
+            });
+        }
+
         // IE not working. IE지원 불가.
         this.getHanMode = function () {
             return new Promise(function (resolve, reject) {
