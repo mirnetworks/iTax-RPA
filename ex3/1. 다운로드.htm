@@ -144,7 +144,7 @@
                     if (nMyVer < nNewVer) {
                         if (confirm('최신 버전으로 업데이트 하겠습니까?')) {
                             _engine.rpa.updateEngine(cab)
-                                .then(function (data) { resolve(data) })
+                                .then(function (data) { resolve(data); })
                                 .catch(function (error) { reject(error); });
                         }
                     } else {
