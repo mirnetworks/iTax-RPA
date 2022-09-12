@@ -282,7 +282,7 @@ var _engine = new function () {
                         .catch(function (error) {
                             reject(error);
                         });
-                }, Math.max(delay, 300)); // 너무 빠르게 요청하면 크롬이 처리하지 못하는것으로 보임. 최소 500ms 이상
+                }, Math.max(delay, 300));
             });
         }
 
