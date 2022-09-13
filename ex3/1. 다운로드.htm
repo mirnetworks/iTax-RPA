@@ -39,14 +39,14 @@
             .catch(function () {
                 if (confirm('플러그인을 다운로드 하겠습니까?')) {
                     checkInstall();
-                    location.href = './download/Setup.msi';
+                    location.href = './download/Setup.msi?' + new Date().getTime();
                 }
             });
     }
 
     // 플러그인 설치버전 확인 및 다운로드.
     function checkPluginReinstall() {
-        var ver, verUrl = './download/version.txt', msiUrl = './download/Setup.msi';
+        var ver, verUrl = './download/version.txt', msiUrl = './download/Setup.msi?' + new Date().getTime();
         var myVer = '', newVer = '';
         var nMyVer = 0; nNewVer = 0;
         _engine.rpa.getPluginVersion('Setup.msi')
