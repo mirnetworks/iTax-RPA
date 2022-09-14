@@ -97,7 +97,7 @@
                 console.log("SETP 11");
                 return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
                     _engine.rpa.tabId,
-                    "(function(){ var s = document.documentElement.outerHTML; return s; })();",
+                    "(function(){ var i = document.documentElement.outerHTML.indexOf('\"mw-parser-output'); var s = document.documentElement.outerHTML.substr(i, 20); return s; })();",
                     "mw-parser-output",
                     nWait
                 );
@@ -106,12 +106,12 @@
                 console.log("SETP 12");
                 return _engine.rpa.chromiumExecuteScript(
                     _engine.rpa.tabId,
-                    "(function(){ var s = document.documentElement.outerHTML; return s; })();"
+                    "(function(){ var start = document.documentElement.outerHTML.indexOf('<title>'); var end = document.documentElement.outerHTML.indexOf('</html>'); var s = document.documentElement.outerHTML.substr(start, end - start); return s; })();"
                 );
             })
             .then(function (data) {
                 console.log("SETP 13");
-                return new Promise(function (resolve) {
+                return new Promise(function (resolve, reject) {
                     try {
                         var msg = "";
                         var title = data.result.match("<title>([^<>/]+)</title>")[1];
@@ -123,7 +123,7 @@
                         });
                         msgNode.innerHTML = title + "<br/><br/>" + msg;
                     } catch (err) {
-                        alert(err);
+                        reject("[파싱오류] " + err);
                     }
                     resolve(); // reject 사용금지. 오류 발생해도 탭 및 이벤트는 종료해야 함.
                 });
