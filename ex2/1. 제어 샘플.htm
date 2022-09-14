@@ -25,8 +25,7 @@
 <span id="msg" style="color: red;"></span>
 <div class="mask"></div>
 <script>
-    var nWait = 3000;
-
+    var nWait = 3;
 
     function example(bInfinite) {
         var msgNode = document.querySelector('#msg');
@@ -42,7 +41,7 @@
                 var machine = data["machine"];
                 var speed = Math.max(network, machine);
                 var wait = parseInt(document.querySelector("#wait").value);
-                nWait = Math.max(Math.ceil(speed * 1.5 / 1000), wait) * 1000;
+                nWait = Math.max(Math.ceil(speed * 1.5 / 1000), wait);
                 
                 return _engine.rpa.checkRPA(browser);
             })

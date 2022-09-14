@@ -266,11 +266,10 @@ var _engine = new function () {
             return request(apiServer + "/api", { action: "ChromiumTabRemove", params: { 0: tabId } }, "POST");
         }
 
-        this.chromiumExecuteScript = function (tabId, code, delay) { // 사용주의: RPA 서버 최대 처리 시간 30초, 타임아웃 주의, 서버에서 WaitForSingleObject 처리하므로 중복실행 불가.
-            delay = delay || 300;
+        this.chromiumExecuteScript = function (tabId, code) { // 서버에서 WaitForSingleObject or mutex lock 처리하므로 중복실행 불가.
             return new Promise(function (resolve, reject) {
                 setTimeout(function () {
-                    request(apiServer + "/api", { action: "ChromiumExecuteScript", params: { 0: tabId, 1: "try {" + code + "} catch (e) {console.log(e);}"  } }, "POST")
+                    request(apiServer + "/api", { action: "ChromiumExecuteScript", params: { 0: tabId, 1: code  } }, "POST")
                         .then(function (response) {
                             var data = JSON.parse(response);
                             if (undefined == data.error) {
@@ -282,41 +281,39 @@ var _engine = new function () {
                         .catch(function (error) {
                             reject(error);
                         });
-                }, Math.max(delay, 300));
+                }, 300);
             });
         }
 
-        this.chromiumExecuteScriptEx = function (tabId, code, delay) {
-            delay = delay || 300;
-            return this.chromiumExecuteScript(tabId, "localStorage.removeItem('__ret');(function(){ var doc=document,s=doc.createElement('script');s.text=\"var __ret= " + code + ";localStorage['__ret']=JSON.stringify({ ret: __ret })\";s.type='text/javascript';(document.head||document.documentElement).appendChild(s); return JSON.parse(localStorage['__ret']).ret; })();", delay);
+        this.chromiumExecuteScriptEx = function (tabId, code, timeout) {
+            timeout = timeout || 3;
+            return this.chromiumExecuteScript(tabId, "localStorage.removeItem('__ret');(function(){ var doc=document,s=doc.createElement('script');s.text=\"var __ret= " + code + ";localStorage['__ret']=JSON.stringify({ ret: __ret })\";s.type='text/javascript';(document.head||document.documentElement).appendChild(s); return JSON.parse(localStorage['__ret']).ret; })();", timeout);
         }
 
-        this.chromiumExecuteScriptWaitForKeyword = function (tabId, code, keyword, delay) {
-            var interval;
+        this.chromiumExecuteScriptWaitForKeyword = function (tabId, code, keyword, timeout) {
             var that = this;
             var cnt = 0, total = 0;
-            delay = delay || 5000;
-            delay = Math.max(delay, 100);
-            total = Math.ceil(delay / 100);
-            delay = Math.max(delay, 5);
+            timeout = timeout || 3;
+            total = timeout * 2;
+
             return new Promise(function (resolve, reject) {
-                interval = setInterval(function () {
-                    if (++cnt >= total) {
-                        clearInterval(interval);
+                var exec = function () {
+                    if (cnt++ >= total) {
                         reject("[error] '" + keyword + "' not found.");
-                    } else {
-                        that.chromiumExecuteScript(tabId, code)
-                            .then(function (data) {
-                                if (null != data.result && String(data.result).indexOf(String(keyword)) > -1) {
-                                    clearInterval(interval);
-                                    resolve(true);
-                                }
-                            })
-                            .catch(function (error) {
-                                reject(error);
-                            });
                     }
-                }, 100);
+                    that.chromiumExecuteScript(tabId, code)
+                        .then(function (data) {
+                            if (null != data.result && String(data.result).indexOf(String(keyword)) > -1) {
+                                resolve(true);
+                            } else {
+                                setTimeout(exec, 500);
+                            }
+                        })
+                        .catch(function (error) {
+                            reject(error);
+                        });
+                }
+                setTimeout(exec, 500);
             });
         }
 
@@ -337,16 +334,15 @@ var _engine = new function () {
             );
         }
 
-        this.waitForCompleted = function (url, delay) {
+        this.waitForCompleted = function (url, timeout) {
             var that = this;
             var cnt = 0, total = 0;
-            delay = delay || 5000;
-            delay = Math.max(delay, 100);
-            total = Math.ceil(delay / 100);
+            timeout = timeout || 3;
+            total = timeout * 2;
             return new Promise(function (resolve, reject) {
                 var data = null;
                 var interval = setInterval(function () {
-                    if (++cnt >= total) {
+                    if (cnt++ >= total) {
                         clearInterval(interval);
                         reject('[error] Wait timeout.\n' + url);
                     }
@@ -358,7 +354,7 @@ var _engine = new function () {
                             break;
                         }
                     }
-                }, 100);
+                }, 500);
             });
         }
 

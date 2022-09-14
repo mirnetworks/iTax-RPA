@@ -105,7 +105,6 @@
         var cab = location.protocol + '//' + location.host + path.substr(0, path.lastIndexOf('/')) + "/download/rpa.cab"; // Fully qualified domain name.
         var myVer = '', newVer = '';
         var nMyVer = 0; nNewVer = 0;
-        console.log(cab);
 
         // 업데이트시 cab파일 다운로드 받은 사이즈 및 전체 사이즈가 소켓 이벤트로 발생합니다.
         _engine.rpa.on("message", function (event) {
