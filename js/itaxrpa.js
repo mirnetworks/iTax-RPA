@@ -292,6 +292,7 @@ var _engine = new function () {
         }
 
         this.chromiumExecuteScriptWaitForKeyword = function (tabId, code, keyword, delay) {
+            var interval;
             var that = this;
             var cnt = 0, total = 0;
             delay = delay || 5000;
@@ -299,22 +300,22 @@ var _engine = new function () {
             total = Math.ceil(delay / 100);
             delay = Math.max(delay, 5);
             return new Promise(function (resolve, reject) {
-                var interval = setInterval(function () {
+                interval = setInterval(function () {
                     if (++cnt >= total) {
                         clearInterval(interval);
                         reject("[error] '" + keyword + "' not found.");
+                    } else {
+                        that.chromiumExecuteScript(tabId, code)
+                            .then(function (data) {
+                                if (null != data.result && String(data.result).indexOf(String(keyword)) > -1) {
+                                    clearInterval(interval);
+                                    resolve(true);
+                                }
+                            })
+                            .catch(function (error) {
+                                reject(error);
+                            });
                     }
-                    that.chromiumExecuteScript(tabId, code)
-                        .then(function (data) {
-                            if (null != data.result && String(data.result).indexOf(String(keyword)) > -1) {
-                                clearInterval(interval);
-                                resolve(true);
-                            }
-                        })
-                        .catch(function (error) {
-                            clearInterval(interval);
-                            reject(error);
-                        });
                 }, 100);
             });
         }
