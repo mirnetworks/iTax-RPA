@@ -291,6 +291,10 @@ var _engine = new function () {
             return this.chromiumExecuteScript(tabId, "localStorage.removeItem('__ret');(function(){ var doc=document,s=doc.createElement('script');s.text=\"var __ret= " + code + ";localStorage['__ret']=JSON.stringify({ ret: __ret })\";s.type='text/javascript';(document.head||document.documentElement).appendChild(s); return JSON.parse(localStorage['__ret']).ret; })();", timeout);
         }
 
+        /**
+         * 스크립트 원격 실행 중 "Server timeout." 오류 메시지가 발생하면,
+         * 리턴되는 문자열을 btoa로 변환하여 반환하십시오.
+         */
         this.chromiumExecuteScriptWaitForKeyword = function (tabId, code, keyword, timeout) {
             var that = this;
             var cnt = 0, total = 0;

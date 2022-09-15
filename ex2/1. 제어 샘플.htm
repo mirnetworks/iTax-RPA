@@ -72,51 +72,52 @@
                 console.log("SETP 7");
                 return _engine.rpa.chromiumExecuteScript(
                     _engine.rpa.tabId,
-                    "(function(){ var s = document.documentElement.outerHTML; return s; })();"
+                    'document.querySelector("div a h3").click();'
                 );
             })
             .then(function () {
                 console.log("SETP 8");
+                return _engine.rpa.waitForCompleted("https://ko.wikipedia.org/", nWait);
+            })
+            .then(function () {
+                console.log("SETP 9");
                 return _engine.rpa.chromiumExecuteScript(
                     _engine.rpa.tabId,
                     'document.querySelector("div a h3").click();'
                 );
             })
             .then(function () {
-                console.log("SETP 9");
-                return _engine.rpa.waitForCompleted("https://ko.wikipedia.org/", nWait);
-            })
-            .then(function () {
                 console.log("SETP 10");
-                return _engine.rpa.chromiumExecuteScript(
+                var keyword = '"mw-parser-output';
+                return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
                     _engine.rpa.tabId,
-                    'document.querySelector("div a h3").click();'
+                    "(function(){" +
+                    "    var start = document.documentElement.outerHTML.indexOf('" + keyword + "');" +
+                    "    var s = document.documentElement.outerHTML.substr(start, " + keyword.length + ");" +
+                    "    return (start == -1) ? '' : s;" +
+                    "})();",
+                    keyword,
+                    nWait
                 );
             })
             .then(function () {
                 console.log("SETP 11");
-                return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
-                    _engine.rpa.tabId,
-                    "(function(){ var i = document.documentElement.outerHTML.indexOf('\"mw-parser-output'); var s = document.documentElement.outerHTML.substr(i, 20); return s; })();",
-                    "mw-parser-output",
-                    nWait + 2
-                );
-            })
-            .then(function () {
-                console.log("SETP 12");
                 return _engine.rpa.chromiumExecuteScript(
                     _engine.rpa.tabId,
-                    "(function(){ var start = document.documentElement.outerHTML.indexOf('<title>'); var end = document.documentElement.outerHTML.indexOf('</html>'); var s = document.documentElement.outerHTML.substr(start, end - start); return s; })();"
+                    "(function(){" +
+                    "    return window.btoa(encodeURIComponent(document.documentElement.outerHTML));" +
+                    "})();" // window.btoa는 간헐적 무응답 방지. host에서 특수문자를 stream에서 못 읽는듯.
                 );
             })
             .then(function (data) {
-                console.log("SETP 13");
+                console.log("SETP 12");
                 return new Promise(function (resolve, reject) {
                     try {
                         var msg = "";
-                        var title = data.result.match("<title>([^<>/]+)</title>")[1];
+                        var result = decodeURIComponent(atob(data.result));
+                        var title = result.match("<title>([^<>/]+)</title>")[1];
                         var re = /mw-parser-output"(.*?)<h2>/gi; // /gis ie not working
-                        var mc = data.result.replace(/\r/g, "").replace(/\n/g, "").match(re);
+                        var mc = result.replace(/\r/g, "").replace(/\n/g, "").match(re);
                         mc = mc[0].match(/<p>((?!<p>).)+<\/p>/gi);
                         mc.forEach(function (element) {
                             msg += element.replace(/<[^>]*>/gi, "") + "<br/><br/>";
@@ -129,11 +130,11 @@
                 });
             })
             .then(function () {
-                console.log("SETP 14");
+                console.log("SETP 13");
                 return _engine.rpa.chromiumTabRemove(_engine.rpa.tabId);
             })
             .then(function () {
-                console.log("SETP 15");
+                console.log("SETP 14");
                 _engine.rpa.chromiumEvent(false);
                 if (bInfinite) setTimeout(function () { example(bInfinite); }, 500);
             })
@@ -200,19 +201,29 @@
                 if (mainTab != _engine.rpa.tabId) {
                     _engine.rpa.chromiumTabRemove(_engine.rpa.tabId);
                 }
+                var keyword = 'txppIframe';
                 return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
-                    mainTab,
-                    "(function(){ var s = document.documentElement.outerHTML; return s; })();",
-                    "txppIframe",
+                    _engine.rpa.tabId,
+                    "(function(){" +
+                    "    var start = document.documentElement.outerHTML.indexOf('" + keyword + "');" +
+                    "    var s = document.documentElement.outerHTML.substr(start, " + keyword.length + ");" +
+                    "    return (start == -1) ? '' : s;" +
+                    "})();",
+                    keyword,
                     nWait
                 );
             })
             .then(function () {
                 console.log("SETP 7");
+                var keyword = 'textbox1136';
                 return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
-                    mainTab,
-                    "(function(){ var s = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML; return s; })();",
-                    "textbox1136",
+                    _engine.rpa.tabId,
+                    "(function(){" +
+                    "    var start = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML.indexOf('" + keyword + "');" +
+                    "    var s = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML.substr(start, " + keyword.length + ");" +
+                    "    return (start == -1) ? '' : s;" +
+                    "})();",
+                    keyword,
                     nWait
                 );
             })
@@ -225,10 +236,15 @@
             })
             .then(function () {
                 console.log("SETP 9");
+                var keyword = 'radio4_input_0';
                 return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
-                    mainTab,
-                    "(function(){ var s = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML; return s; })()",
-                    "radio4_input_0",
+                    _engine.rpa.tabId,
+                    "(function(){" +
+                    "    var start = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML.indexOf('" + keyword + "');" +
+                    "    var s = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML.substr(start, " + keyword.length + ");" +
+                    "    return (start == -1) ? '' : s;" +
+                    "})();",
+                    keyword,
                     nWait
                 );
             })
@@ -241,10 +257,15 @@
             })
             .then(function () {
                 console.log("SETP 11");
+                var keyword = 'btnCert';
                 return _engine.rpa.chromiumExecuteScriptWaitForKeyword(
-                    mainTab,
-                    "(function(){ var s = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML; return s; })()",
-                    "btnCert",
+                    _engine.rpa.tabId,
+                    "(function(){" +
+                    "    var start = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML.indexOf('" + keyword + "');" +
+                    "    var s = document.querySelector('#txppIframe').contentWindow.document.documentElement.outerHTML.substr(start, " + keyword.length + ");" +
+                    "    return (start == -1) ? '' : s;" +
+                    "})();",
+                    keyword,
                     nWait
                 );
             })
