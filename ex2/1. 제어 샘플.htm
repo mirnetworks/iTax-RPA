@@ -99,7 +99,7 @@
                     _engine.rpa.tabId,
                     "(function(){ var i = document.documentElement.outerHTML.indexOf('\"mw-parser-output'); var s = document.documentElement.outerHTML.substr(i, 20); return s; })();",
                     "mw-parser-output",
-                    nWait
+                    nWait + 2
                 );
             })
             .then(function () {

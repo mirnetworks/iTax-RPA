@@ -266,10 +266,11 @@ var _engine = new function () {
             return request(apiServer + "/api", { action: "ChromiumTabRemove", params: { 0: tabId } }, "POST");
         }
 
-        this.chromiumExecuteScript = function (tabId, code) { // 서버에서 WaitForSingleObject or mutex lock 처리하므로 중복실행 불가.
+        this.chromiumExecuteScript = function (tabId, code, timeout) { // 서버에서 WaitForSingleObject or mutex lock 처리하므로 중복실행 불가.
+            timeout = timeout || 3;
             return new Promise(function (resolve, reject) {
                 setTimeout(function () {
-                    request(apiServer + "/api", { action: "ChromiumExecuteScript", params: { 0: tabId, 1: code  } }, "POST")
+                    request(apiServer + "/api", { action: "ChromiumExecuteScript", params: { 0: tabId, 1: code, 2: timeout } }, "POST")
                         .then(function (response) {
                             var data = JSON.parse(response);
                             if (undefined == data.error) {
@@ -295,13 +296,12 @@ var _engine = new function () {
             var cnt = 0, total = 0;
             timeout = timeout || 3;
             total = timeout * 2;
-
             return new Promise(function (resolve, reject) {
                 var exec = function () {
                     if (cnt++ >= total) {
                         reject("[error] '" + keyword + "' not found.");
                     }
-                    that.chromiumExecuteScript(tabId, code)
+                    that.chromiumExecuteScript(tabId, code, timeout)
                         .then(function (data) {
                             if (null != data.result && String(data.result).indexOf(String(keyword)) > -1) {
                                 resolve(true);
