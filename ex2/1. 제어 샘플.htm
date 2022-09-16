@@ -114,7 +114,7 @@
                 return new Promise(function (resolve, reject) {
                     try {
                         var msg = "";
-                        var result = decodeURIComponent(atob(data.result));
+                        var result = /^([A-Za-z0-9+/=]+)$/.test(data.result) ? decodeURIComponent(atob(data.result)) : data.result;
                         var title = result.match("<title>([^<>/]+)</title>")[1];
                         var re = /mw-parser-output"(.*?)<h2>/gi; // /gis ie not working
                         var mc = result.replace(/\r/g, "").replace(/\n/g, "").match(re);
