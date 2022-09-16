@@ -1,1 +1,1 @@
-{ "rpa.exe": "1.0.0.247", "hspcpp.dll": "1.0.7.92", "Setup.msi": "1.0.247" }
+{ "rpa.exe": "1.0.0.248", "hspcpp.dll": "1.0.7.93", "Setup.msi": "1.0.248" }
