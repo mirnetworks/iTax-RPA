@@ -377,19 +377,19 @@
     function call2(el) {
 
         el.disabled = true;
-        document.querySelector('#sendkey').value = "";
-        document.querySelector('#sendkey').focus();
+        var input = document.querySelector('#sendkey');
+        input.value = "";
+        input.focus();
+
         // https://docs.microsoft.com/ko-kr/windows/win32/inputdev/virtual-key-codes?redirectedfrom=MSDN
 
-        _engine.rpa.getKeybdState(0x14)
-            .then(function (data) {
-                if ((data.result & 0x0001) != 0) {
-                    sendInput(0x14); // Caps Lock OFF
-                }
+        _engine.rpa.turnOffCapsLock()
+            .then(function () {
                 return _engine.rpa.getHanMode();
             })
-            .then(function (data) {
-                if (data.result) { // ime 영어로 변경
+            .then(function (isHan) {
+                input.focus();
+                if (isHan) {
                     sendInput(0x15);
                 }
             })
@@ -445,14 +445,20 @@
 
     function call3(el) {
         el.disabled = true;
-        document.querySelector('#sendkey').value = "";
-        document.querySelector('#sendkey').focus();
+        var input = document.querySelector('#sendkey');
+        input.value = "";
+        input.focus();
 
-        _engine.rpa.getKeybdState(0x14)
-            .then(function (data) {
-                if ((data.result & 0x0001) != 0) {
-                    sendInput(0x14); // Caps Lock OFF
+        _engine.rpa.turnOffCapsLock()
+            .then(function () {
+                return _engine.rpa.getHanMode();
+            })
+            .then(function (isHan) {
+                if (isHan) {
+                    sendInput(0x15);
                 }
+            })
+            .then(function () {
                 return _engine.rpa.sendKeys("우리글 한글 뻵ㅃㅉㄸㄲㅆ ASDF qwer ㅙㅞ!");
             })
             .catch(function (error) {
@@ -471,14 +477,15 @@
     }
 
     function hangeul() {
-        document.querySelector('#sendkey').focus();
-
+        var input = document.querySelector('#sendkey');
+        input.focus();
         sendInput(0x15)
             .then(function () {
                 return _engine.rpa.getHanMode();
             })
-            .then(function (data) {
-                document.querySelector('#sendkey').value = data.result ? "한글" : "English";
+            .then(function (isHan) {
+                input.focus();
+                input.value = isHan ? "한글" : "English";
             });
     }
 </script>

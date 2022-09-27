@@ -182,20 +182,44 @@ var _engine = new function () {
             return request(apiServer + "/stop?t=" + new Date().getTime(), '', "GET");
         }
 
-        this.getKeybdState = function (vKey) {
+        this.turnOffCapsLock = function () {
+            var that = this;
+            var ael = document.activeElement;
             return new Promise(function (resolve, reject) {
-                return request(apiServer + "/api", { action: "GetKeybdState", params: { 0: vKey } }, "POST")
-                    .then(function (data) { resolve(JSON.parse(data)); })
-                    .catch(function (error) { reject(error); })
+                var el = document.createElement("input");
+                el.style.position = 'absolute';
+                el.style.left = '0px';
+                el.style.top = '-30px';
+                var func = function (event) {
+                    if (event.getModifierState("CapsLock")) {
+                        that.keyboardEvent(0x14, 0, 0, 0);
+                        that.keyboardEvent(0x14, 0, 2, 0);
+                    }
+                    setTimeout(function () { ael.focus(); resolve(); }, 100);
+                    el.remove();
+                }
+                el.addEventListener('keydown', func);
+                (document.body || document.documentElement).appendChild(el);
+                el.focus();
+                that.keyboardEvent(65, 0, 0, 0);
             });
         }
 
-        // IE not working. IE지원 불가.
         this.getHanMode = function () {
+            var that = this;
+            var ael = document.activeElement;
             return new Promise(function (resolve, reject) {
-                return request(apiServer + "/api", { action: "GetHanMode", params: {} }, "POST")
-                    .then(function (data) { resolve(JSON.parse(data)); })
-                    .catch(function (error) { reject(error); })
+                var el = document.createElement("input");
+                el.style.position = 'absolute';
+                el.style.left = '0px';
+                el.style.top = '-30px';
+                el.addEventListener('keydown', function (event) {
+                    el.remove();
+                    setTimeout(function () { ael.focus(); resolve(event.key != 'a'); }, 100);
+                });
+                (document.body || document.documentElement).appendChild(el);
+                el.focus();
+                that.keyboardEvent(65, 0, 0, 0);
             });
         }
 
