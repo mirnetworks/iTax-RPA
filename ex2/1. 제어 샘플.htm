@@ -61,7 +61,7 @@
                 console.log("SETP 5");
                 return _engine.rpa.chromiumExecuteScript(
                     tabId,
-                    "document.querySelector('input[name=q]').value='site:https://ko.wikipedia.org Robotic process automation';setTimeout(function(){document.querySelector('input[value=\"Google 검색\"]').click();},100);"
+                    "document.getElementByName('q').value='site:https://ko.wikipedia.org Robotic process automation';setTimeout(function(){document.querySelector('input[value=\"Google 검색\"]').click();},100);"
                 );
             })
             .then(function () {
